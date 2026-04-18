@@ -13,7 +13,6 @@ export default async function handler(req, res) {
 
   try {
     const body = req.body;
-
     const perfitRes = await fetch('https://api.myperfit.com/v2/maderplastmin/contacts', {
       method: 'POST',
       headers: {
@@ -22,12 +21,9 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify(body)
     });
-
     const data = await perfitRes.text();
     return res.status(perfitRes.status).send(data);
-
   } catch (err) {
-    console.error('Perfit error:', err);
     return res.status(500).json({ error: 'Internal server error' });
   }
 }
