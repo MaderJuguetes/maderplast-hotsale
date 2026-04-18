@@ -285,7 +285,7 @@ async function submitForm(){
   var fields={nombre:nombre,list:'Hot Sale - Early Access'};
   if(wsp)fields.celular=wsp;
   try{
-    var res=await fetch('https://api.myperfit.com/v2/maderplastmin/contacts',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'maderplastmin-rsJ4S4p3S75IbDo782kxtzT9TWD7bEFl'},body:JSON.stringify({email:email,firstName:firstName,lastName:lastName,tags:['hot-sale-2026','early-access'],customFields:fields})});
+    var res=await fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,firstName:firstName,lastName:lastName,tags:['hot-sale-2026','early-access'],customFields:fields})});
     if(res.ok||res.status===201||res.status===200||res.status===409){
       document.getElementById('form-body').style.display='none';
       var s=document.getElementById('success-msg');s.style.display='flex';
