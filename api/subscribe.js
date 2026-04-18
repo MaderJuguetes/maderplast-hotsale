@@ -5,9 +5,9 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   try {
-    const { email, firstName, lastName, tags, customFields } = req.body;
-    const payload = { email, firstName, lastName, lists: [4], tags: tags || [], customFields: customFields || {} };
-    const perfitRes = await fetch('https://api.myperfit.com/v2/maderplastmin/contacts', {
+    const { email, firstName, lastName } = req.body;
+    const payload = { email, firstName, lastName };
+    const perfitRes = await fetch('https://api.myperfit.com/v2/maderplastmin/contacts?listId=4', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
