@@ -13,7 +13,7 @@ export default async function handler(req, res) {
       email,
       firstName,
       lastName,
-      lists: ['Hot Sale - Early Access'],
+      lists: [4],
       tags: tags || [],
       customFields: customFields || {}
     };
