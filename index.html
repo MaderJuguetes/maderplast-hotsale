@@ -283,6 +283,13 @@ footer{background:var(--dark2);border-top:1px solid var(--border);padding:40px;t
 <script>
 function updateCountdown(){var target=new Date('2026-05-07T23:59:59-03:00').getTime();var diff=target-Date.now();if(diff<=0){['cd-days','cd-hours','cd-mins','cd-secs'].forEach(function(id){document.getElementById(id).textContent='00';});return;}var d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);function pad(n){return n<10?'0'+n:n;}document.getElementById('cd-days').textContent=pad(d);document.getElementById('cd-hours').textContent=pad(h);document.getElementById('cd-mins').textContent=pad(m);document.getElementById('cd-secs').textContent=pad(s);}
 updateCountdown();setInterval(updateCountdown,1000);
+// Mostrar éxito si viene de registro
+if(window.location.search.includes('registrado=ok')){
+  document.getElementById('form-body').style.display='none';
+  var s=document.getElementById('success-msg');s.style.display='flex';
+  var el=document.getElementById('cupos-left');var cur=parseInt(el.textContent);if(cur>1)el.textContent=cur-1;
+  setTimeout(function(){document.getElementById('form').scrollIntoView({behavior:'smooth'});},300);
+}
 function toggleFaq(btn){btn.closest('.faq-item').classList.toggle('open');}
 async function submitForm(){
   var nombre=document.getElementById('inp-nombre').value.trim();
@@ -301,9 +308,7 @@ async function submitForm(){
   try{
     var res=await fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,firstName:firstName,lastName:lastName})});
     if(res.ok||res.status===201||res.status===200||res.status===409){
-      document.getElementById('form-body').style.display='none';
-      var s=document.getElementById('success-msg');s.style.display='flex';
-      var el=document.getElementById('cupos-left');var cur=parseInt(el.textContent);if(cur>1)el.textContent=cur-1;
+      window.location.href = window.location.pathname + '?registrado=ok';
     }else{showError('Hubo un error al registrarte. Intentá de nuevo.');btn.disabled=false;btn.textContent='ASEGURAR MI LUGAR GRATIS →';}
   }catch(e){showError('Error de conexión. Revisá tu internet.');btn.disabled=false;btn.textContent='ASEGURAR MI LUGAR GRATIS →';}
 }
